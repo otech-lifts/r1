@@ -1,9 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 
 export default function App() {
-  function handleInputText() {
-    console.log("pisem text")
+  const [item, setItem] = useState("");
+  const [task, setTask] = useState([])
+  function handleAddItem() {
+    console.log("Item", item);
+    setTask([...task, item]);
+    console.log(task);
+  }
+  function handleInputText(text) {
+    setItem(text)
   }
   return (
     <View style={styles.container}>
@@ -11,11 +19,13 @@ export default function App() {
         <TextInput
           onChangeText ={handleInputText}
             style={styles.input} placeholder = "xxxxxzadaj Task"/>
-            <Button title = "ADD" />
+            <Button onPress={handleAddItem} title = "ADD" />
         <StatusBar style="auto" />
       </View>
       <View style={styles.udalosti}>
-        <Text>UDALOSTI</Text>
+        {task.map((i)=>{
+          <Text>{i}</Text>;
+        })}
       </View>
       </View>
     );
